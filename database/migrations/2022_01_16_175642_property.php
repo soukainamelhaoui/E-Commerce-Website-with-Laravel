@@ -20,7 +20,8 @@ class Property extends Migration
                 $table->string('title');
                 $table->string('type');
                 $table->float('price');
-                $table->string('location');
+                $table->string('country');
+                $table->string('city');
                 $table->string('image');
                 $table->string('description');
                 $table->integer('available_rooms');

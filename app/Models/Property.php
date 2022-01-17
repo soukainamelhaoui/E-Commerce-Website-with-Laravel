@@ -15,7 +15,8 @@ class Property extends Model
         'title',
         'type',
         'price',
-        'location',
+        'country',
+        'city',
         'image',
         'description',
         'available_rooms'

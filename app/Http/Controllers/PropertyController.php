@@ -22,7 +22,8 @@ class PropertyController extends Controller
         $property->title = $request->input('title');
         $property->type = $request->input('type');
         $property->price = $request->input('price');
-        $property->location = $request->input('location');
+        $property->country = $request->input('country');
+        $property->city = $request->input('city');
         $property->available_rooms = $request->input('avrooms');
         $property->description = $request->input('description');
     
