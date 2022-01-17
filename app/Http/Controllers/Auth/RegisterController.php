@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -49,9 +50,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'firstName' => ['required', 'string', 'max:255'],
+            'lastName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'image' => 'required|image|mimes:jpeg,png|max:2048',
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,8 +68,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $admin=false;
+        if ($data['role']=='admin') {
+         $admin=true;
+        }
+        $imageName = time().'.'.$data['image']->extension();
+        $data['image']->move(public_path('images'), $imageName);
+        
         return User::create([
-            'name' => $data['name'],
+            'firstName' => $data['firstName'],
+            'lastName' => $data['lastName'],
+            'image' =>$imageName,
+            'admin'=>$admin,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
