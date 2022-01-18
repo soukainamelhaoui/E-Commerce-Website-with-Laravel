@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function(){
     {   
         $user = Auth::user();
         if ($user->admin) {
-            return 'admin dashboard';
+            return view('adminDashboard',['user'=>$user]);
             
         } else{
             return 'client dashboard';
