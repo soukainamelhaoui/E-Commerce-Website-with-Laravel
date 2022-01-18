@@ -33,7 +33,7 @@ class PropertyController extends Controller
             $file = $request->file('image');
             $extention = $file->getClientOriginalExtension();
             $filename = time().'.'.$extention;
-            $file->move('uploads/properties/', $filename);
+            $file->move('images/', $filename);
             $property->image = $filename;
         }
 
