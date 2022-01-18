@@ -10,7 +10,9 @@ class PropertyController extends Controller
 {
     public function create(){
         $property = Property::all();
-        return view('propertyForm', ['property' => $property,
+        return view('propertyForm', [
+                                        'property' => $property,
+                                        'user'=>Auth::user()
                                     ]);
     }
     

@@ -16,12 +16,46 @@ use App\Http\Controllers\PropertyController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/explore');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/explore',function ()
+{
+    // lists the latest posted properties
+    return 'explore init';
+});
 
-Route::post('/', [PropertyController::class, 'store']);
-Route::get('/propertyForm', [PropertyController::class, 'create']);
+Route::middleware(['auth'])->group(function(){
+    // routes that requires the user to be authenticated 
+    Route::get('/dashboard',function ()
+    {   
+        $user = Auth::user();
+        if ($user->admin) {
+            return view('adminDashboard',['user'=>$user]);
+            
+        } else{
+            return 'client dashboard';
+        }
+    });
+});    
+
+Route::middleware(['auth','isAdmin'])->group(function(){
+    // routes that requires the user to be authenticated and an admin 
+    Route::get('/property/create',[PropertyController::class, 'create']);
+    Route::post('/property',[PropertyController::class, 'store']);
+    Route::get('/property/{id}/update',function ()
+    {   
+        return 'update property view';
+    });
+    Route::put('/property/{id}',function ()
+    {   
+        error_log(' property put request');
+    });
+    Route::delete('/property/{id}',function ()
+    {   
+        error_log(' property delete request');
+    });
+    
+});
