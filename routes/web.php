@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,14 +43,8 @@ Route::middleware(['auth'])->group(function(){
 
 Route::middleware(['auth','isAdmin'])->group(function(){
     // routes that requires the user to be authenticated and an admin 
-    Route::get('/property/create',function ()
-    {   
-        return 'create property view';
-    });
-    Route::post('/property',function ()
-    {   
-        error_log('create property post request');
-    });
+    Route::get('/property/create',[PropertyController::class, 'create']);
+    Route::post('/property',[PropertyController::class, 'store']);
     Route::get('/property/{id}/update',function ()
     {   
         return 'update property view';
