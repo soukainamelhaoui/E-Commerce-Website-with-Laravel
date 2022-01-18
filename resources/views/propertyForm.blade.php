@@ -16,7 +16,7 @@
             <div class="card second-text">
                 <h3 class="text-center mb-4">Property Information</h3>
                 
-                <form action="/" method="POST" enctype="multipart/form-data">
+                <form action="/property" method="POST" enctype="multipart/form-data">
                 @csrf
 
                           
@@ -327,7 +327,7 @@
 
                     <div class="row mb-0">
                         <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">Add Lodeging</button>
+                            <button type="submit" class="btn btn-primary">Add Property</button>
                         </div>
                     </div>
                 </form>

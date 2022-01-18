@@ -1,3 +1,6 @@
+.header {
+    background-color: var(--primary);
+}
 .mans__nav__primary {
     display: flex;
     align-items: center;
