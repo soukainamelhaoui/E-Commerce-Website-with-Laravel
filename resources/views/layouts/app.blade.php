@@ -54,7 +54,7 @@
                         @guest
                         <div class="auth__links" >
                             <a href="/login" class="btn btn-outline-light">Login</a>
-                            <a href="/register" class="btn btn-warning" >Register</a>
+                            <a href="/register" class="btn btn-light" >Register</a>
                         </div>
                         @endguest
                       
@@ -69,8 +69,9 @@
                             </a>    
                             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                                 @if ($user->admin)
-                                    <li><a class="dropdown-item" href="/property/create">Add Property...</a></li>
+                                <li><a class="dropdown-item" href="/property/create">Add Property...</a></li>
                                 @endif
+                                <li><a class="dropdown-item" href="/profile">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();

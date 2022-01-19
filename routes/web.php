@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,10 @@ Route::middleware(['auth'])->group(function(){
             return 'client dashboard';
         }
     });
+    Route::get('/profile',[UserController::class,'show']);
+    Route::delete('/profile',[UserController::class,'delete']);
+    Route::get('/profile/edit',[UserController::class,'edit']);
+    Route::put('/profile/edit',[UserController::class,'saveChanges']);
 });    
 
 Route::middleware(['auth','isAdmin'])->group(function(){
