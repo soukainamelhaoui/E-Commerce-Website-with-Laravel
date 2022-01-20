@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Property extends Model
 {
@@ -25,5 +26,10 @@ class Property extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function booking()
+    {
+        return $this->hasOne(Booking::class);
     }
 }

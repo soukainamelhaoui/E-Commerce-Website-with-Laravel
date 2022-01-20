@@ -19,11 +19,11 @@ class Property extends Migration
                 $table->id('id_property');
                 $table->string('title');
                 $table->string('type');
-                $table->float('price');
+                $table->float('price_per_night');
                 $table->string('country');
                 $table->string('city');
                 $table->string('image');
-                $table->string('description');
+                $table->longText('description');
                 $table->integer('available_rooms');
                 $table->unsignedBigInteger('user_id');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

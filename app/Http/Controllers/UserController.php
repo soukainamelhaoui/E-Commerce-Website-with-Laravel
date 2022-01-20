@@ -11,7 +11,10 @@ class UserController extends Controller
 {
     public function show()
     {
-        return view('profile',['user'=>Auth::user()]);
+        $user = Auth::user();
+        $propertiesNumber = sizeof($user->properties);
+        
+        return view('profile',['user'=>$user,'propertiesNumber'=>$propertiesNumber]);
     }
 
     public function edit()
