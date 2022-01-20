@@ -15,6 +15,10 @@
                     @endif
 
                     You are logged in!
+
+                    <div class="kbd" >
+                        {{$properties}}
+                    </div>
                 </div>
             </div>
         </div>

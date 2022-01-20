@@ -21,4 +21,9 @@ class Property extends Model
         'description',
         'available_rooms'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

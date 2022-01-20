@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function(){
     {   
         $user = Auth::user();
         if ($user->admin) {
-            return view('adminDashboard',['user'=>$user]);
+            return view('adminDashboard',['user'=>$user,'properties'=>$user->properties]);
             
         } else{
             return 'client dashboard';
