@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PropertyController;
@@ -62,5 +63,13 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     {   
         error_log(' property delete request');
     });
+    
+});
+
+Route::middleware(['auth','isNotAdmin'])->group(function(){
+    // routes that requires the user to be authenticated and not an admin 
+    Route::get('/property/{id}/booking',[BookingController::class, 'create']);
+    Route::post('/property/{id}/booking',[BookingController::class, 'store']);
+    Route::delete('/property/{propertyId}/booking/{bookingId}',[BookingController::class, 'delete']);
     
 });
