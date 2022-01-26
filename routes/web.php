@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
+use App\Models\Property;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,9 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return redirect('/explore');
+    $props = Property::orderBy('updated_at')->paginate(8);
+    
+    return view('home',['props'=>$props,'user'=>Auth::user()]);
 });
 
 Auth::routes();
@@ -26,7 +30,20 @@ Auth::routes();
 Route::get('/explore',function ()
 {
     // lists the latest posted properties
-    return 'explore init';
+    return redirect('/');
+});
+
+Route::post('/country',function(){
+    
+    return redirect('/country/?country='.request('country'));
+});
+
+Route::get('/country',function(Request $request){
+    $country = $request->query('country');
+    $props = Property::where('country',$country)->orderBy('updated_at')->paginate(8);
+    $user = Auth::user();
+    
+    return view('search',['user'=>$user,'props'=>$props]);
 });
 
 Route::middleware(['auth'])->group(function(){
@@ -34,8 +51,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard',function ()
     {   
         $user = Auth::user();
+        $props = Property::where('user_id',$user->id)->orderBy('updated_at')->paginate(8);
         if ($user->admin) {
-            return view('adminDashboard',['user'=>$user,'properties'=>$user->properties]);
+            return view('adminDashboard',['user'=>$user,'props'=>$props]);
             
         } else{
             return 'client dashboard';

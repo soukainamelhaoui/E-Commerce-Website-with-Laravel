@@ -23,6 +23,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/style_added.css">
 
 </head>
 <body>
@@ -97,5 +98,58 @@
             @yield('content')
         </main>
     </div>
+          <footer class="footer">
+            <div class="container-ft">
+                <div class="row-ft">
+
+                    <div class="footer-col">
+                        <h4>Our company</h4>
+                            <ul>
+                                <li><a href="#">about us </a></li>
+                                <li><a href="#">our services  </a></li>
+                                <li><a href="#">Privacy policy </a></li>
+                                <li><a href="#">affiliate program</a></li> 
+                            </ul>
+                       
+                    </div>
+
+                    <div class="footer-col">
+                        <h4> Get help </h4>
+                            <ul>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">shipping</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Order status</a></li>
+                                <li><a href="#">Paiment options</a></li>
+                            </ul>
+                        
+                    </div>
+
+                    <div class="footer-col">
+                        <h4> online booking</h4>
+                            <ul>
+                                <li><a href="#">hotels</a></li>
+                                <li><a href="#">villas </a></li>
+                                <li><a href="#"> beatch houses</a></li>
+                                <li><a href="#">appartements</a></li>
+                            </ul>
+                     
+                    </div>
+
+                    <div class="footer-col">
+                        <h4> Follow us </h4>
+                            <div class="social-links">
+                                <a href="#"> <i class="bi bi-facebook" ></i></a>
+                                <a href="#"> <i class="bi bi-messenger"></i></a>
+                                <a href="#"> <i class="bi bi-whatsapp" style="vertical-align:middle;"></i></a>
+                                <a href="#"> <i class="bi bi-instagram"></i></a>
+                            </div>
+                     
+                    </div>
+                    
+                </div>
+            </div>
+
+        </footer>
 </body> 
 </html>

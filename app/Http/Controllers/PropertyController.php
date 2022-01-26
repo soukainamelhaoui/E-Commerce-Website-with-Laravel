@@ -23,7 +23,7 @@ class PropertyController extends Controller
 
         $property->title = $request->input('title');
         $property->type = $request->input('type');
-        $property->price = $request->input('price');
+        $property->price_per_night = $request->input('price');
         $property->country = $request->input('country');
         $property->city = $request->input('city');
         $property->available_rooms = $request->input('avrooms');
