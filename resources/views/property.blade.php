@@ -23,7 +23,7 @@
                                 <h4>{{ $property->country }} - {{ $property->city }}</h4>
                                 <p>{{ $property->description }}</p>
                                 <p class="price"><b>Price:</b> {{ $property->price }} MAD</p>
-                                <button type="button" class="btn btn-warning buy">Book Now</button>
+                                <a href="/property/{{$property->id_property}}/reservation" class="btn btn-warning buy">Book Now</a>
                                 
                             </div>
                         </div>
