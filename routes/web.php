@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function(){
 Route::get('/property/{id_property}', [PropertyController::class, function($id_property){
     $property = Property::find($id_property);
     return view('property', ['property' => $property,
+                                'user'=>Auth::user()
                             ]);
 }]);
 Route::post('/property',[PropertyController::class, 'store']);
@@ -79,10 +80,6 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('dashboard/propertyForm',[PropertyController::class, 'create']);
     
     Route::get('/dashboard/editProperty/{id_property}', [PropertyController::class, 'edit']);
-    Route::put('/property/{id}',function ()
-    {   
-        error_log(' property put request');
-    });
     Route::delete('/property/{id}', [PropertyController::class, 'delete']);
     
 });

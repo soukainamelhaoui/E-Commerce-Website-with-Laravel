@@ -22,9 +22,23 @@
                                 <h2>{{ $property->title }}</h2>
                                 <h4>{{ $property->country }} - {{ $property->city }}</h4>
                                 <p>{{ $property->description }}</p>
-                                <p class="price"><b>Price:</b> {{ $property->price }} MAD</p>
-                                <a href="/property/{{$property->id_property}}/reservation" class="btn btn-warning buy">Book Now</a>
+                                <p class="price"><b>Price:</b> {{ $property->price_per_night }} MAD</p>
+                                @if ($user)
+                                    
+                                @if ($user->id == $property->user_id)
+                                <form action="/property/{{$property->id_property}}" method="POST">
+                                    @csrf    
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger mb-3">Delete</button>
+                                </form>
+                                <a href="/dashboard/editProperty/{{$property->id_property}}" class="btn btn-primary ">Edit</a>
                                 
+                                @else
+                                <a href="/property/{{$property->id_property}}/reservation" class="btn btn-warning buy">Book Now</a>
+                                @endif
+                                @else
+                                <p>You need to login to make a booking</p>
+                                @endif
                             </div>
                         </div>
                              

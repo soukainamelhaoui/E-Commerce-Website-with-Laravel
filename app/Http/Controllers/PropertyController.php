@@ -63,7 +63,7 @@ class PropertyController extends Controller
         $property = Property::find($id_property);
         $property->title = request('title');
         $property->type = request('type');
-        $property->price = request('price');
+        $property->price_per_night = request('price');
         $property->available_rooms = request('avrooms');
         $property->description = request('description');
 
@@ -73,5 +73,3 @@ class PropertyController extends Controller
     }
 
 }
-
-
