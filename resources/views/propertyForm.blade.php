@@ -367,16 +367,4 @@
 
 </style>
 
-<!-- <script>
-    let btns = document.getElementsByClassName("btn");
-    for(var i = 0; i < btns.length; i++){
-    btns[i].addEventListener('click', function(e){
-        
-            e.target.style.backgroundColor = "#FF9900";
-            e.target.style.color = "white";
-        }
-
-    )}
-</script> -->
-
 @endsection

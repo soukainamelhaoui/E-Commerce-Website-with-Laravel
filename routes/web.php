@@ -67,22 +67,23 @@ Route::middleware(['auth'])->group(function(){
     Route::put('/profile/edit',[UserController::class,'saveChanges']);
 });    
 
+Route::get('/property/{id_property}', [PropertyController::class, function($id_property){
+    $property = Property::find($id_property);
+    return view('property', ['property' => $property,
+                            ]);
+}]);
+Route::post('/property',[PropertyController::class, 'store']);
+
 Route::middleware(['auth','isAdmin'])->group(function(){
     // routes that requires the user to be authenticated and an admin 
-    Route::get('/property/create',[PropertyController::class, 'create']);
-    Route::post('/property',[PropertyController::class, 'store']);
-    Route::get('/property/{id}/update',function ()
-    {   
-        return 'update property view';
-    });
+    Route::get('dashboard/propertyForm',[PropertyController::class, 'create']);
+    
+    Route::get('/dashboard/editProperty/{id_property}', [PropertyController::class, 'edit']);
     Route::put('/property/{id}',function ()
     {   
         error_log(' property put request');
     });
-    Route::delete('/property/{id}',function ()
-    {   
-        error_log(' property delete request');
-    });
+    Route::delete('/property/{id}', [PropertyController::class, 'delete']);
     
 });
 
@@ -92,3 +93,4 @@ Route::middleware(['auth','isNotAdmin'])->group(function(){
     Route::post('/property/{id}/reservation',[ReservationController::class, 'store']);
     
 });
+Route::put('/propertyUpdate/{id_property}', [PropertyController::class, 'update']);

@@ -21,12 +21,12 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
+    
      * @return void
      */
     public function boot()
     {
-        //View::share('users', User::all());
+        View::share('users', User::all());
         Paginator::useBootstrap();
     }
 }
