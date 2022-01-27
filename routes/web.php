@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 use App\Models\Property;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 /*
@@ -20,7 +21,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    $props = Property::orderBy('updated_at')->paginate(8);
+    $props = Property::latest()->paginate(8);
     
     return view('home',['props'=>$props,'user'=>Auth::user()]);
 });
@@ -40,7 +41,7 @@ Route::post('/country',function(){
 
 Route::get('/country',function(Request $request){
     $country = $request->query('country');
-    $props = Property::where('country',$country)->orderBy('updated_at')->paginate(8);
+    $props = Property::where('country',$country)->latest()->paginate(8);
     $user = Auth::user();
     
     return view('search',['user'=>$user,'props'=>$props]);
@@ -51,12 +52,13 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard',function ()
     {   
         $user = Auth::user();
-        $props = Property::where('user_id',$user->id)->orderBy('updated_at')->paginate(8);
         if ($user->admin) {
+            $props = Property::where('user_id',$user->id)->latest()->paginate(8);
             return view('adminDashboard',['user'=>$user,'props'=>$props]);
             
         } else{
-            return 'client dashboard';
+            $reservations = Reservation::where('user_id',$user->id)->latest()->paginate(4);
+            return view('clientDashboard', ['reservations' => $reservations,'user'=>Auth::user()]);
         }
     });
     Route::get('/profile',[UserController::class,'show']);
@@ -86,8 +88,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 
 Route::middleware(['auth','isNotAdmin'])->group(function(){
     // routes that requires the user to be authenticated and not an admin 
-    Route::get('/property/{id}/booking',[BookingController::class, 'create']);
-    Route::post('/property/{id}/booking',[BookingController::class, 'store']);
-    Route::delete('/property/{propertyId}/booking/{bookingId}',[BookingController::class, 'delete']);
+    Route::get('/property/{id}/reservation',[ReservationController::class, 'create']);
+    Route::post('/property/{id}/reservation',[ReservationController::class, 'store']);
     
 });
