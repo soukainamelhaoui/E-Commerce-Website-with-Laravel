@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
+use App\Models\Property;
+use App\Models\Reservation;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +21,9 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return redirect('/explore');
+    $props = Property::latest()->paginate(8);
+    
+    return view('home',['props'=>$props,'user'=>Auth::user()]);
 });
 
 Auth::routes();
@@ -25,7 +31,20 @@ Auth::routes();
 Route::get('/explore',function ()
 {
     // lists the latest posted properties
-    return 'explore init';
+    return redirect('/');
+});
+
+Route::post('/country',function(){
+    
+    return redirect('/country/?country='.request('country'));
+});
+
+Route::get('/country',function(Request $request){
+    $country = $request->query('country');
+    $props = Property::where('country',$country)->latest()->paginate(8);
+    $user = Auth::user();
+    
+    return view('search',['user'=>$user,'props'=>$props]);
 });
 
 Route::middleware(['auth'])->group(function(){
@@ -34,10 +53,12 @@ Route::middleware(['auth'])->group(function(){
     {   
         $user = Auth::user();
         if ($user->admin) {
-            return view('adminDashboard',['user'=>$user]);
+            $props = Property::where('user_id',$user->id)->latest()->paginate(8);
+            return view('adminDashboard',['user'=>$user,'props'=>$props]);
             
         } else{
-            return 'client dashboard';
+            $reservations = Reservation::where('user_id',$user->id)->latest()->paginate(4);
+            return view('clientDashboard', ['reservations' => $reservations,'user'=>Auth::user()]);
         }
     });
     Route::get('/profile',[UserController::class,'show']);
@@ -62,5 +83,12 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     {   
         error_log(' property delete request');
     });
+    
+});
+
+Route::middleware(['auth','isNotAdmin'])->group(function(){
+    // routes that requires the user to be authenticated and not an admin 
+    Route::get('/property/{id}/reservation',[ReservationController::class, 'create']);
+    Route::post('/property/{id}/reservation',[ReservationController::class, 'store']);
     
 });
