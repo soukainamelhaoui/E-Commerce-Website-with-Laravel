@@ -17,7 +17,7 @@ class ReservationController extends Controller
     
     public function store(Request $request,$id){
         $reservation = new Reservation();
-        $id = Auth::id(); 
+        $userId = Auth::id(); 
  
         $reservation->first_name = $request->input('first_name');
         $reservation->last_name = $request->input('last_name');
@@ -28,7 +28,7 @@ class ReservationController extends Controller
         $reservation->check_out = $request->input('check_out');
         $reservation->special_requests = $request->input('special_requests');
         $reservation->property_id = $id;
-        $reservation->user_id = $id;
+        $reservation->user_id = $userId;
 
        
         $reservation->save();
