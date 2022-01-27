@@ -11,9 +11,16 @@ class PropertyController extends Controller
     public function create(){
         $property = Property::all();
         return view('propertyForm', [
-                                        'property' => $property,
-                                        'user'=>Auth::user()
+                                        'property' => $property
+                                        
                                     ]);
+    }
+
+    public function delete($id_property){
+        $id_property = Property::find($id_property);
+        $id_property->delete();
+        return redirect('/explore');
+
     }
     
 
@@ -43,4 +50,28 @@ class PropertyController extends Controller
 
         return redirect('/');
     }
+
+    public function edit($id_property){
+        $property = Property::find($id_property);
+        return view('editProperty', [
+            'property' => $property
+            
+        ]);
+    }
+
+    public function update($id_property){
+        $property = Property::find($id_property);
+        $property->title = request('title');
+        $property->type = request('type');
+        $property->price = request('price');
+        $property->available_rooms = request('avrooms');
+        $property->description = request('description');
+
+        $property->update();
+
+        return redirect('/')->with('mssg', 'Property Updated Successfuly');
+    }
+
 }
+
+

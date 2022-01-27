@@ -64,12 +64,12 @@
                             <a href="#" 
                                 class="d-flex align-items-center link-light text-decoration-none dropdown-toggle " 
                                 id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <p class="mb-0 me-2 fs-6" >{{$user->email}}</p>
-                                <img src="/images/{{$user->image}}" alt="{{$user->firstName}}" class="rounded-circle" width="32" height="32">
+                                <p class="mb-0 me-2 fs-6" >{{Auth::user()->email}}</p>
+                                <img src="/images/{{Auth::user()->image}}" alt="{{Auth::user()->firstName}}" class="rounded-circle" width="32" height="32">
                             </a>    
                             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                                @if ($user->admin)
-                                    <li><a class="dropdown-item" href="/property/create">Add Property...</a></li>
+                                @if (Auth::user()->admin)
+                                    <li><a class="dropdown-item" href="/dashboard/propertyForm">Add Property...</a></li>
                                 @endif
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}"
